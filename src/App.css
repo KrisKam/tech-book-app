@@ -1,3 +1,21 @@
 .App {
   text-align: center;
 }
+
+/* Header Styles */
+
+.HeaderBrand {
+  font-size: 2rem;
+}
+
+.HeaderText {
+  font-size: 1.5rem;
+}
+
+.HomeCardText {
+  font-size: 3rem;
+}
+
+.BooksCard {
+  height: 250px;
+}
