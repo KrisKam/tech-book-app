@@ -61,10 +61,10 @@ class Author extends Component {
   }
 
   render() {
-    console.log("post_id is a string!: ", this.props.match.params.post_id)
+    //console.log("post_id is a string!: ", this.props.match.params.post_id)
     const {authors} = this.state;
     const createAuthorCard = authors.map((author) => {
-      if (author.author_id == this.props.match.params.post_id) {
+      if (author.author_id === parseInt(this.props.match.params.post_id, 10)) {
         console.log("author_id: ", author.author_id);
         return ( 
           <Card className="flex-md-row mb-4 box-shadow h-md-250 shadow-sm" key={author.author_id}>

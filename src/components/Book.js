@@ -68,6 +68,7 @@ class Books extends Component {
 
     const {books} = this.state;
     const createBookCard = books.map(book => {
+      if (book.book_id === parseInt(this.props.match.params.post_id, 10))
       return ( 
         <Card className="flex-md-row mb-4 box-shadow h-md-250 shadow-sm" key={book.book_id}>
           <CardBody className="d-flex flex-column align-items-start">

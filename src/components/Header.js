@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Navbar, NavbarBrand, NavItem, Nav} from "reactstrap";
+import {Navbar, NavbarBrand, NavItem, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from "reactstrap";
 
 const Header = () => {
 
@@ -18,8 +18,25 @@ const Header = () => {
           <Link to="/books" className="text-white HeaderText px-4">Books</Link>
         </NavItem>
         <NavItem>
-          <Link to="/authors" className="text-white HeaderText" href="/components/authors">Authors</Link>
-        </NavItem>       
+          <Link to="/authors" className="text-white HeaderText px-4">Authors</Link>
+        </NavItem> 
+        <UncontrolledDropdown nav inNavbar >
+          <DropdownToggle nav caret className="text-white HeaderText pt-0" >
+            Add
+          </DropdownToggle>
+          <DropdownMenu right>
+            <Link to="/books/new">
+              <DropdownItem>
+                Add Book
+              </DropdownItem>
+            </Link>
+            <Link to="/authors/new">
+              <DropdownItem>
+                Add Author
+              </DropdownItem>
+            </Link>
+          </DropdownMenu>
+        </UncontrolledDropdown>      
       </Nav>
     </Navbar>
   )
