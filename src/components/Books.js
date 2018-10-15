@@ -5,28 +5,82 @@ import {Link} from "react-router-dom";
 class Books extends Component {
 
   state = {
-    bookData: []
+    bookData: [],
+    authorNames: []
   }
 
   componentDidMount() {
-    this.getAllData();
+    // this.getAllData();
+    // this.getAuthorInfo();
+    this.getBookInfo();
   }
 
-  getAllData = () => {
-    return fetch(`https://tech-books-database.herokuapp.com/`)
+  // getAllData = () => {
+  //   return fetch(`https://tech-books-database.herokuapp.com/`)
+  //     .then(result => result.json())
+  //     .then(result => {
+  //       this.getAuthors(result);
+  //     })
+  // }
+
+  // getAuthorInfo = () => {
+  //   return fetch(`https://tech-books-database.herokuapp.com/authors`)
+  //     .then(result => result.json())
+  //     .then(result => {
+  //       this.getAuthors(result);
+  //     })
+  // }
+
+  getBookInfo = () => {
+    return fetch(`https://tech-books-database.herokuapp.com/authors`)
       .then(result => result.json())
       .then(result => {
-        this.setState(
-          {bookData: result.data}
-        )
+        this.filterBookData(result);
       })
   }
 
+  // getAuthors = authors => {
+  //   console.log("consolidate: ", authors);
+  //   const authorNames = {};
+  //   let bookID = "";
+  //   let names = [];
+  //   authors.data.forEach(author => {        
+  //     if (authorNames.hasOwnProperty(author.book_id)) {
+  //       names.push(`, ${author.authorFirst} ${author.authorLast}`)
+  //       authorNames[bookID] = names;
+  //     } else {
+  //       bookID = author.book_id;
+  //       names = [`${author.authorFirst} ${author.authorLast}`]
+  //       authorNames[bookID] = names;
+  //       authorNames["book_id"] = author.book_id;
+  //     }
+  //   })
+  //   console.log("authNames: ", authorNames);
+  //   this.setState(
+  //     {
+  //       bookData: authors.data,
+  //       authorNames: authorNames
+  //     }
+  //   ) 
+  //   console.log("state: ", this.state)
+  //   return authorNames;
+  // }
+
+  // filterBookData = (bookData) => {
+  //   let tempID = 0;
+  //   return bookData.filter(book => {
+  //     if (tempID !== book.book_id) {
+  //       tempID = book.book_id;
+  //       return book;
+  //     }
+  //   })
+  // }
+
   render() {
 
-    const  {bookData} = this.state;
+    const {bookData} = this.state;
     const createBookCard = bookData.map((book, i) => {
-      return (
+      return ( 
         <Card className="flex-md-row mb-4 box-shadow h-md-250 shadow-sm" key={i}>
           <CardBody className="d-flex flex-column align-items-start">
             <strong className="d-inline-block mb-2 text-primary">Genre: {book.genre}</strong>

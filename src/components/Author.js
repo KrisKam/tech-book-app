@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Card, CardText, CardBody, CardLink} from "reactstrap";
 import {Link} from "react-router-dom";
 
-class Authors extends Component {
+class Author extends Component {
 
   state = {
     books: [],
@@ -33,7 +33,6 @@ class Authors extends Component {
   }
 
   consolidateAuthors = (result) => {
-    console.log(result.authors)
     const filteredID = [];
     const filteredAuthors = result.authors.filter(author => {
       if (filteredID.includes(author.author_id)) {
@@ -48,11 +47,9 @@ class Authors extends Component {
         authors: filteredAuthors 
       }
     )
-    console.log("filtered auth: ", this.state.authors)
   }
 
   authorBooks = (books, id) => {
-    console.log(books)
     let titleList = books.map(books => {
       if(books.author_id === id) {
         return <div key={books.book_id}>{books.title}</div>
@@ -64,25 +61,31 @@ class Authors extends Component {
   }
 
   render() {
-
+    console.log("post_id is a string!: ", this.props.match.params.post_id)
     const {authors} = this.state;
     const createAuthorCard = authors.map((author) => {
-      return ( 
-        <Card className="flex-md-row mb-4 box-shadow h-md-250 shadow-sm" key={author.author_id}>
-          <CardBody className="d-flex flex-column align-items-start">
-            <h3 className="mb-0">
-              <Link to={`/authors/${author.author_id}`} className="text-dark">Author: {author.authorFirst} {author.authorLast}</Link>
-            </h3>
-            <CardText className="mb-auto">{author.bio}</CardText>
-            <div className="mb-1 text-muted">Book(s): {this.authorBooks(this.state.books, author.author_id)}</div>
-            <div>
-              <CardLink href="#">Edit</CardLink>
-              <CardLink href="#">Remove</CardLink>
-            </div>
-          </CardBody>
-          <img className="card-img-right flex-auto d-none d-sm-block AuthorsCard" alt={author.authorLast + " portrait"} src={author.portrait}/>
-        </Card>
-      )
+      if (author.author_id == this.props.match.params.post_id) {
+        console.log("author_id: ", author.author_id);
+        return ( 
+          <Card className="flex-md-row mb-4 box-shadow h-md-250 shadow-sm" key={author.author_id}>
+            <CardBody className="d-flex flex-column align-items-start">
+              <h3 className="mb-0">
+                <Link to={`/authors/${author.author_id}`} className="text-dark">Author: {author.authorFirst} {author.authorLast}</Link>
+              </h3>
+              <CardText className="mb-auto">{author.bio}</CardText>
+              <div className="mb-1 text-muted">Book(s): {this.authorBooks(this.state.books, author.author_id)}</div>
+              <div>
+                <CardLink href="#">Edit</CardLink>
+                <CardLink href="#">Remove</CardLink>
+              </div>
+            </CardBody>
+            <img className="card-img-right flex-auto d-none d-sm-block AuthorsCard" alt={author.authorLast + " portrait"} src={author.portrait}/>
+          </Card>
+        )
+      } else {
+        return null;
+      }
+
     })
 
     return (
@@ -93,4 +96,4 @@ class Authors extends Component {
   }
 }
 
-export default Authors;
+export default Author;
